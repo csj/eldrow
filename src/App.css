@@ -36,3 +36,45 @@
     transform: rotate(360deg);
   }
 }
+
+.cell {
+  height: 80px;
+  width: 80px;
+  display: inline-block;
+  font-size: 48pt;
+  font-weight: bold;
+  text-align: center;
+  vertical-align: middle;
+  color: white;
+  margin: 4px;
+  border-radius: 5px;
+}
+
+.Active {
+  outline: 6px solid black !important;
+  outline-offset: -6px !important;
+  /*border-radius: 25px;*/
+}
+
+.Invalid {
+  outline: 3px solid red;
+  outline-offset: 0px;
+}
+
+.None {
+  background-color: dimgray;
+}
+
+.WrongPlace {
+  background-color: darkgoldenrod;
+}
+
+.RightPlace {
+  background-color: darkgreen;
+}
+
+.invalid-word {
+  display: inline-block;
+  color: red;
+  font-size: 20pt
+}
