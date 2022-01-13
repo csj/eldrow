@@ -4,7 +4,7 @@ import {CellStatus} from "./Cell";
 import {Grid, GridProps} from "./Grid";
 
 function App() {
-    const [grid, setGrid] = React.useState<GridProps | undefined>(undefined);
+    const [statuses, setStatuses] = React.useState<CellStatus[][] | undefined>(undefined);
 
     function paste(content: string) {
         const blanks = ['White large square', '⬛', '⬜', '\u2B1B'];
@@ -41,16 +41,19 @@ function App() {
             }
             if (row.length == 5) statuses.push(row)
         }
-        setGrid({rows: statuses})
+        setStatuses(statuses);
     }
 
-    if (grid) return <Grid {...grid}/>;
+    if (statuses) return <div>
+        <Grid rows={statuses} onReset={() => setStatuses(undefined)}/>
+    </div>;
     return <ContentPaster onPaste={paste}/>;
 }
 
 interface ContentPasterProps {
     onPaste: (content: string) => void;
 }
+
 function ContentPaster(props: ContentPasterProps) {
     return <div>
         <div>Paste your Wordle "solution" here:</div>

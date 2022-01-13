@@ -1,9 +1,11 @@
 import {Row, RowProps} from "./Row";
 import React from "react";
 import {Cell, CellStatus} from "./Cell";
+import {CopyToClipboard} from "react-copy-to-clipboard";
 
 export interface GridProps {
     rows: CellStatus[][];
+    onReset: () => void;
 }
 
 interface CellState {
@@ -15,7 +17,12 @@ export function Grid(props: GridProps) {
     const numGuesses = props.rows.length
     let [activeRow, setActiveRow] = React.useState(numGuesses - 1);
     let [activeCol, setActiveCol] = React.useState(0);
-    let [letters, setLetters] = React.useState(Array(props.rows.length).fill(['', '', '', '', '']));
+    const empty = Array(props.rows.length).fill(['', '', '', '', ''])
+    let [letters, setLetters] = React.useState(empty);
+
+    function clear() {
+        setLetters(empty);
+    }
 
     function handleClick(row: number, col: number) {
         setActiveRow(row);
@@ -55,6 +62,33 @@ export function Grid(props: GridProps) {
         }
     }
 
+    function buildCopyText() {
+        let retVal = '';
+        for (let r = 0; r < props.rows.length; r++) {
+            for (let c = 0; c < 5; c++) {
+                //let base;
+                //base = 0x1F170;
+                let modifier = 0;
+                if (props.rows[r][c] == 'RightPlace') {
+                    //base = 0x1F130;
+                    modifier = 0x0332;
+                } else if (props.rows[r][c] == 'WrongPlace') {
+                    modifier = 0x0323;
+                    //base = 0x24B6;
+                }
+                if (letters[r][c] < 'A' || letters[r][c] > 'Z') return '';
+                let base = 0x1D670;
+                let hex = base + letters[r][c].charCodeAt(0) - 'A'.charCodeAt(0);
+                retVal += String.fromCodePoint(hex)
+                if (modifier) retVal += String.fromCodePoint(modifier);
+            }
+            retVal += '\n';
+        }
+        return retVal
+    }
+
+    let copyText = buildCopyText();
+
     return (
         <div className="grid" tabIndex={0} onKeyDown={e => handleKeyPress(e.key)}>
             {props.rows.map((row, r) => (
@@ -66,6 +100,11 @@ export function Grid(props: GridProps) {
                     isInvalid: isInvalid(r,c)
                 }))} />
             ))}
+            <CopyToClipboard text={copyText}>
+                <button disabled={!copyText}>Copy</button>
+            </CopyToClipboard>
+            <button onClick={() => clear()}>Clear</button>
+            <button onClick={props.onReset}>Reset</button>
         </div>
     );
 }
