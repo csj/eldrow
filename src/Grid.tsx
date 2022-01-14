@@ -1,16 +1,11 @@
-import {Row, RowProps} from "./Row";
+import {Row} from "./Row";
 import React from "react";
-import {Cell, CellStatus} from "./Cell";
+import {CellStatus} from "./Cell";
 import {CopyToClipboard} from "react-copy-to-clipboard";
 
 export interface GridProps {
     rows: CellStatus[][];
     onReset: () => void;
-}
-
-interface CellState {
-    letter: string;
-    isInvalid: boolean;
 }
 
 export function Grid(props: GridProps) {
@@ -56,8 +51,8 @@ export function Grid(props: GridProps) {
         const actualLetters = letters[numGuesses-1]
 
         switch (props.rows[row][col]) {
-            case 'None': return !(actualLetters.every((c:string) => c != guessLetter))
-            case 'WrongPlace': return !(actualLetters.some((c:string) => c == guessLetter) && actualLetters[col] != guessLetter)
+            case 'None': return !(actualLetters.every((c:string) => c !== guessLetter))
+            case 'WrongPlace': return !(actualLetters.some((c:string) => c == guessLetter) && actualLetters[col] !== guessLetter)
             case 'RightPlace': return !(actualLetters[col] == guessLetter)
         }
     }
@@ -95,7 +90,7 @@ export function Grid(props: GridProps) {
                 <Row key={r} cells={row.map((cell, c) => ({
                     status: cell,
                     letter: letters[r][c],
-                    isActive: activeRow == r && activeCol == c,
+                    isActive: activeRow === r && activeCol == c,
                     onClick: () => handleClick(r, c),
                     isInvalid: isInvalid(r,c)
                 }))} />

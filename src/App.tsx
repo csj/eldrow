@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import {CellStatus} from "./Cell";
-import {Grid, GridProps} from "./Grid";
+import {Grid} from "./Grid";
 
 function App() {
     const [statuses, setStatuses] = React.useState<CellStatus[][] | undefined>(undefined);
@@ -39,7 +39,7 @@ function App() {
                     }
                 }
             }
-            if (row.length == 5) statuses.push(row)
+            if (row.length === 5) statuses.push(row)
         }
         setStatuses(statuses);
     }
