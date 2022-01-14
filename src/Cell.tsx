@@ -1,11 +1,11 @@
 export type CellStatus = 'None' | 'WrongPlace' | 'RightPlace'
 
-export interface Cell {
+export interface CellModel {
     letter: string;
     status: CellStatus;
 }
 
-export interface CellProps extends Cell {
+export interface CellProps extends CellModel {
     isActive: boolean;
     onClick: () => void;
     isInvalid: boolean;

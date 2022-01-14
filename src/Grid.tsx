@@ -25,7 +25,7 @@ export function Grid(props: GridProps) {
     }
 
     function handleKeyPress(letter: string) {
-        if ((letter < 'a' || letter > 'z') && letter != ' ') return;
+        if ((letter < 'a' || letter > 'z') && letter !== ' ') return;
         letter = letter.toUpperCase()
 
         let newLetters = [...letters.map(row => [...row])];
@@ -52,8 +52,8 @@ export function Grid(props: GridProps) {
 
         switch (props.rows[row][col]) {
             case 'None': return !(actualLetters.every((c:string) => c !== guessLetter))
-            case 'WrongPlace': return !(actualLetters.some((c:string) => c == guessLetter) && actualLetters[col] !== guessLetter)
-            case 'RightPlace': return !(actualLetters[col] == guessLetter)
+            case 'WrongPlace': return !(actualLetters.some((c:string) => c === guessLetter) && actualLetters[col] !== guessLetter)
+            case 'RightPlace': return !(actualLetters[col] === guessLetter)
         }
     }
 
@@ -64,10 +64,10 @@ export function Grid(props: GridProps) {
                 //let base;
                 //base = 0x1F170;
                 let modifier = 0;
-                if (props.rows[r][c] == 'RightPlace') {
+                if (props.rows[r][c] === 'RightPlace') {
                     //base = 0x1F130;
                     modifier = 0x0332;
-                } else if (props.rows[r][c] == 'WrongPlace') {
+                } else if (props.rows[r][c] === 'WrongPlace') {
                     modifier = 0x0323;
                     //base = 0x24B6;
                 }
@@ -90,7 +90,7 @@ export function Grid(props: GridProps) {
                 <Row key={r} cells={row.map((cell, c) => ({
                     status: cell,
                     letter: letters[r][c],
-                    isActive: activeRow === r && activeCol == c,
+                    isActive: activeRow === r && activeCol === c,
                     onClick: () => handleClick(r, c),
                     isInvalid: isInvalid(r,c)
                 }))} />
