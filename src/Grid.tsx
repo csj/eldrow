@@ -48,6 +48,7 @@ export function Grid(props: GridProps) {
         if (letters[numGuesses-1].some((c:string) => !c)) return false
         const guessLetter = letters[row][col]
         if (!guessLetter) return false
+        if (guessLetter === ' ') return false
         const actualLetters = letters[numGuesses-1]
 
         switch (props.rows[row][col]) {
@@ -79,7 +80,7 @@ export function Grid(props: GridProps) {
             }
             retVal += '\n';
         }
-        return retVal
+        return retVal + 'eldrow.online  #EldrowOnline'
     }
 
     let copyText = buildCopyText();
