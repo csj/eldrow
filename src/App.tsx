@@ -7,7 +7,7 @@ function App() {
     const [statuses, setStatuses] = React.useState<CellStatus[][] | undefined>(undefined);
 
     function paste(content: string) {
-        const blanks = ['White large square', '⬛', '⬜', '\u2B1B'];
+        const blanks = ['White large square', 'Black large square', '⬛', '⬜', '\u2B1B'];
         const wrongs = ['Yellow square', '\u{1F7E8}']
         const rights = ['Green square', '\u{1F7E9}']
 
