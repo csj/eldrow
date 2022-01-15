@@ -1,5 +1,5 @@
 import {Row} from "./Row";
-import React, {createRef} from "react";
+import React from "react";
 import {CellStatus} from "./Cell";
 import {CopyToClipboard} from "react-copy-to-clipboard";
 import Coffee from "./Coffee";
