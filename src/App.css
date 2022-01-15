@@ -37,6 +37,12 @@
   }
 }
 
+.Row {
+  /*margin: auto;*/
+  display: flex;
+  justify-content: center;
+}
+
 .cell {
   height: 80px;
   width: 80px;
@@ -77,4 +83,8 @@
   display: inline-block;
   color: red;
   font-size: 20pt
+}
+
+.grid {
+  margin:auto
 }

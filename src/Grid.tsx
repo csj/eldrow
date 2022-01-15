@@ -1,7 +1,9 @@
 import {Row} from "./Row";
-import React from "react";
+import React, {createRef} from "react";
 import {CellStatus} from "./Cell";
 import {CopyToClipboard} from "react-copy-to-clipboard";
+import Coffee from "./Coffee";
+import styled from "styled-components";
 
 export interface GridProps {
     rows: CellStatus[][];
@@ -84,23 +86,31 @@ export function Grid(props: GridProps) {
     }
 
     let copyText = buildCopyText();
+    const Button = styled.button`
+      margin-right: 5px;
+    `
 
     return (
-        <div className="grid" tabIndex={0} onKeyDown={e => handleKeyPress(e.key)}>
-            {props.rows.map((row, r) => (
-                <Row key={r} cells={row.map((cell, c) => ({
-                    status: cell,
-                    letter: letters[r][c],
-                    isActive: activeRow === r && activeCol === c,
-                    onClick: () => handleClick(r, c),
-                    isInvalid: isInvalid(r,c)
-                }))} />
-            ))}
-            <CopyToClipboard text={copyText}>
-                <button disabled={!copyText}>Copy</button>
-            </CopyToClipboard>
-            <button onClick={() => clear()}>Clear</button>
-            <button onClick={props.onReset}>Reset</button>
-        </div>
+            <div className="grid" tabIndex={0} onKeyDown={e => handleKeyPress(e.key)}>
+                {props.rows.map((row, r) => (
+                    <Row key={r} cells={row.map((cell, c) => ({
+                        status: cell,
+                        letter: letters[r][c],
+                        isActive: activeRow === r && activeCol === c,
+                        onClick: () => handleClick(r, c),
+                        isInvalid: isInvalid(r,c)
+                    }))} />
+                ))}
+                <div style={{ display: 'flex', justifyContent: 'center', marginTop: 30}}>
+                    <CopyToClipboard text={copyText}>
+                        <Button disabled={!copyText}>Copy</Button>
+                    </CopyToClipboard>
+                    <Button onClick={() => clear()}>Clear</Button>
+                    <Button onClick={props.onReset}>Reset</Button>
+                    <span style={{width:30}}/>
+                    <Coffee/>
+                </div>
+
+            </div>
     );
 }

@@ -44,10 +44,12 @@ function App() {
         setStatuses(statuses);
     }
 
-    if (statuses) return <div>
-        <Grid rows={statuses} onReset={() => setStatuses(undefined)}/>
-    </div>;
-    return <ContentPaster onPaste={paste}/>;
+    return <div style={{display:'flex', justifyContent:'center', marginTop:30}}>
+        {statuses ?
+            <Grid rows={statuses} onReset={() => setStatuses(undefined)}/> :
+            <ContentPaster onPaste={paste}/>
+        }
+    </div>
 }
 
 interface ContentPasterProps {
